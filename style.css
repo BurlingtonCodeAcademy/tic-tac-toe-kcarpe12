@@ -49,7 +49,7 @@ div[id^="row-"] {
   overflow: hidden;
 }
 
-div.board {
+div[id="board"] {
   width: 608px;
   overflow: hidden;
   margin: 0 auto;
