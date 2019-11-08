@@ -1,4 +1,4 @@
-/* The code below is all stolen! ...with a few edits. I'm feeling 
+/* The code below is mostly stolen, with a few edits. I'm feeling 
 pretty behind with a lot of this stuff so I wanted to focus on 
 understanding (and being able to publish SOMETHING to Heroku...) */
 
@@ -14,9 +14,10 @@ let column2 = document.getElementsByClassName('col-2');
 let column3 = document.getElementsByClassName('col-3');
 let diag1 = document.getElementsByClassName('diag-1');
 let diag2 = document.getElementsByClassName('diag-2');
-let row1 = document.getElementById('row-1');
-let row2 = document.getElementById('row-2');
-let row3 = document.getElementById('row-3');
+let row1 = document.getElementsByClassName('row-1');
+let row2 = document.getElementsByClassName('row-2');
+let row3 = document.getElementsByClassName('row-3');
+let boxes = document.getElementsByClassName('box');
 
 function loopaX(x) {
     for (let content of x) {
@@ -34,6 +35,15 @@ function loopaO(o) {
         }
     }
     return true;
+}
+
+function isBoardFull(game) {
+    for (let content of game) {
+        if (!content.innerHTML) {
+            return false;
+        }
+    }
+    return true
 }
 
 gameBoard.addEventListener('click', () => {
@@ -54,15 +64,15 @@ gameBoard.addEventListener('click', () => {
     }
 });
 gameBoard.addEventListener('mousemove', () => {
-    if (row1.innerText === "X\nX\nX" || row1.innerText === "O\nO\nO") {
+    if (loopaX(row1) || loopaO(row1)) {
         alert(`Player ${document.getElementById('cell-1').innerText} wins`);
         location.reload();
     }
-    else if (row2.innerText === "X\nX\nX" || row2.innerText === "O\nO\nO") {
+    else if (loopaX(row2) || loopaO(row2)) {
         alert(`Player ${document.getElementById('cell-4').innerText} wins`);
         location.reload();
     }
-    else if (row3.innerText === "X\nX\nX" || row3.innerText === "O\nO\nO") {
+    else if (loopaX(row3) || loopaO(row3)) {
         alert(`Player ${document.getElementById('cell-7').innerText} wins`);
         location.reload();
     }
@@ -78,7 +88,7 @@ gameBoard.addEventListener('mousemove', () => {
         alert(`Player ${document.getElementById('cell-5').innerText} Wins`)
         location.reload();
     }
-    else if (loopaX(diag1)|| loopaO(diag1)) {
+    else if (loopaX(diag1) || loopaO(diag1)) {
         alert(`Player ${document.getElementById('cell-4').innerText} Wins`)
         location.reload();
     }
@@ -86,7 +96,7 @@ gameBoard.addEventListener('mousemove', () => {
         alert(`Player ${document.getElementById('cell-4').innerText} Wins`)
         location.reload();
     }
-    else if (document.getElementById('board').innerText === `${document.getElementById('cell-0').innerText}\n${document.getElementById('cell-1').innerText}\n${document.getElementById('cell-2').innerText}\n${document.getElementById('cell-3').innerText}\n${document.getElementById('cell-4').innerText}\n${document.getElementById('cell-5').innerText}\n${document.getElementById('cell-6').innerText}\n${document.getElementById('cell-7').innerText}\n${document.getElementById('cell-8').innerText}`) {
+    else if (isBoardFull(boxes)) {
         alert('It\'s a tie!');
         location.reload();
     }
